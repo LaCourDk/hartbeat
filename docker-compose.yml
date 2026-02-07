@@ -1,0 +1,26 @@
+services:
+  hartbeat:
+    build: .
+    ports:
+      - "9090:8080"
+    volumes:
+      - ./data:/data
+    environment:
+      DB_PATH: /data/hartbeat.db
+      ADMIN_USER: admin
+      ADMIN_PASSWORD: admin123
+      JWT_SECRET: change-me
+      REQUIRE_AGENT_TOKEN: 1
+      HEARTBEAT_TIMEOUT: 120
+      OFFLINE_CHECK_INTERVAL: 15
+      CPU_WARN: 70
+      CPU_CRIT: 90
+      RAM_WARN: 75
+      RAM_CRIT: 90
+      GPU_WARN: 70
+      GPU_CRIT: 90
+      TEMP_WARN: 70
+      TEMP_CRIT: 85
+      DISK_WARN: 80
+      DISK_CRIT: 90
+      # WEBHOOK_URL: https://example.com/webhook

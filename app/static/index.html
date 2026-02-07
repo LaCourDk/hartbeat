@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hartbeat Monitor</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap"
+    />
+    <link rel="stylesheet" href="/static/styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  </head>
+  <body>
+    <div id="loginScreen" class="login-screen">
+      <div class="login-card">
+        <h2>Log ind</h2>
+        <p>Brug din Hartbeat konto for at se dashboards.</p>
+        <form id="loginForm">
+          <label>
+            Brugernavn
+            <input id="loginUser" type="text" autocomplete="username" required />
+          </label>
+          <label>
+            Password
+            <input id="loginPass" type="password" autocomplete="current-password" required />
+          </label>
+          <button type="submit">Log ind</button>
+          <div id="loginError" class="error"></div>
+        </form>
+      </div>
+    </div>
+
+    <div class="app" id="appRoot">
+      <header>
+        <div class="brand">
+          <h1>Hartbeat Monitor</h1>
+          <p>Live health, temperatures, and service status across your machines.</p>
+        </div>
+        <div class="header-actions">
+          <div class="footer">Auto-refresh every 10 seconds.</div>
+          <div class="user-bar">
+            <span id="currentUser">-</span>
+            <button id="logoutBtn" class="ghost">Log ud</button>
+          </div>
+        </div>
+      </header>
+
+      <div class="grid">
+        <section class="panel">
+          <h2>Agents</h2>
+          <div id="agentList" class="agent-list"></div>
+        </section>
+
+        <section class="panel">
+          <h2 id="agentTitle">Select an agent</h2>
+          <div class="summary" id="summaryCards"></div>
+
+          <div class="chart-grid">
+            <div class="chart-card">
+              <h4>CPU %</h4>
+              <canvas id="cpuChart"></canvas>
+            </div>
+            <div class="chart-card">
+              <h4>RAM %</h4>
+              <canvas id="ramChart"></canvas>
+            </div>
+            <div class="chart-card">
+              <h4>Temperature C</h4>
+              <canvas id="tempChart"></canvas>
+            </div>
+            <div class="chart-card">
+              <h4>GPU %</h4>
+              <canvas id="gpuChart"></canvas>
+            </div>
+            <div class="chart-card">
+              <h4>Disk %</h4>
+              <canvas id="diskChart"></canvas>
+            </div>
+            <div class="chart-card">
+              <h4>Network KB/s</h4>
+              <canvas id="netChart"></canvas>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <section class="panel">
+        <h2>Recent Alerts</h2>
+        <div id="alertList" class="alerts"></div>
+      </section>
+
+      <section class="panel" id="adminPanel">
+        <h2>Admin</h2>
+        <div class="admin-grid">
+          <div class="admin-card">
+            <h3>Create user</h3>
+            <form id="createUserForm">
+              <input id="newUserName" type="text" placeholder="username" required />
+              <input id="newUserPass" type="password" placeholder="password" required />
+              <select id="newUserRole">
+                <option value="user">user</option>
+                <option value="admin">admin</option>
+              </select>
+              <button type="submit">Create</button>
+            </form>
+            <div id="userCreateMsg" class="muted"></div>
+          </div>
+          <div class="admin-card">
+            <h3>Create agent token</h3>
+            <form id="createAgentForm">
+              <input id="newAgentId" type="text" placeholder="agent_id" required />
+              <input id="newAgentName" type="text" placeholder="name (optional)" />
+              <input id="newAgentTags" type="text" placeholder="tags comma separated" />
+              <button type="submit">Create</button>
+            </form>
+            <div id="agentTokenBox" class="token-box"></div>
+          </div>
+          <div class="admin-card">
+            <h3>Users</h3>
+            <div id="userList" class="list"></div>
+          </div>
+          <div class="admin-card">
+            <h3>Agents</h3>
+            <div id="adminAgentList" class="list"></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>
